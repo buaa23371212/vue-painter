@@ -1,3 +1,7 @@
 > 2025年8月5日
 
 ts缓存的原因，清理就好了，haha
+
+```shell
+npm run dev
+```
