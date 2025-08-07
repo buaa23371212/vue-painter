@@ -75,64 +75,6 @@ export default {
     flex-wrap: wrap;
 }
 
-.tool-group {
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-}
-
-.tool-btn {
-    background: white;
-    border: 2px solid #e0e0e0;
-    border-radius: 8px;
-    padding: 10px 15px;
-    cursor: pointer;
-    font-weight: 600;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    transition: all 0.2s ease;
-}
-
-.tool-btn:hover {
-    background: #f0f0f0;
-    transform: translateY(-2px);
-}
-
-.tool-btn.active {
-    background: #3498db;
-    color: white;
-    border-color: #2980b9;
-}
-
-.tool-btn span {
-    font-size: 18px;
-}
-
-.color-picker {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.color-option {
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    cursor: pointer;
-    border: 2px solid transparent;
-    transition: transform 0.2s;
-}
-
-.color-option:hover {
-    transform: scale(1.15);
-}
-
-.color-option.active {
-    border-color: #2c3e50;
-    transform: scale(1.2);
-}
-
 .toolbar-actions {
     display: flex;
     align-items: center;
@@ -160,10 +102,6 @@ export default {
     .toolbar {
         flex-direction: column;
         gap: 15px;
-    }
-
-    .tool-group {
-        justify-content: center;
     }
 }
 </style>

@@ -2,6 +2,8 @@
 
 ts缓存的原因，清理就好了，haha
 
+Ctrl+Shift+P，然后忘了
+
 ```shell
 npm run dev
 ```
