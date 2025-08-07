@@ -1,5 +1,6 @@
 @import './base.css';
 
+/* 设置#app容器的基础样式：最大宽度、居中显示、内边距和字体权重 */
 #app {
   max-width: 1280px;
   margin: 0 auto;
@@ -7,6 +8,7 @@
   font-weight: normal;
 }
 
+/* 设置链接(a标签)和.green类的样式：无下划线、特定颜色、过渡效果和内边距 */
 a,
 .green {
   text-decoration: none;
@@ -15,21 +17,26 @@ a,
   padding: 3px;
 }
 
+/* 媒体查询：当设备支持hover时，设置链接 hover 状态的背景色 */
 @media (hover: hover) {
   a:hover {
     background-color: hsla(160, 100%, 37%, 0.2);
   }
 }
 
+/* 媒体查询：当屏幕宽度不小于1024px时的样式调整 */
 @media (min-width: 1024px) {
   body {
-    display: flex;
+    display: flex; /* 设置body为flex布局，使内容垂直居中 */
     place-items: center;
+    min-height: 100vh; /* 确保占满视口高度 */
   }
 
   #app {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    padding: 0 2rem;
+    display: grid; /* 设置#app为网格布局，两列等宽 */
+    grid-template-columns: 1fr; /* 改为单列布局 */
+    padding: 0 2rem; /* 调整内边距 */
+    width: 100%; /* 让容器占满可用宽度 */
+    max-width: 1280px; /* 保持最大宽度限制 */
   }
 }

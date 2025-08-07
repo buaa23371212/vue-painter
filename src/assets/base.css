@@ -1,4 +1,6 @@
 /* color palette from <https://github.com/vuejs/theme> */
+/* 从vuejs主题引入的调色板定义 */
+/* 定义基础颜色变量，包括白色系、黑色系、靛蓝色以及分割线和文本的颜色变量 */
 :root {
   --vt-c-white: #ffffff;
   --vt-c-white-soft: #f8f8f8;
@@ -21,7 +23,8 @@
   --vt-c-text-dark-2: rgba(235, 235, 235, 0.64);
 }
 
-/* semantic color variables for this project */
+/* 为当前项目定义语义化颜色变量，基于上面的基础颜色变量 */
+/* 设置默认（亮色模式）下的背景、边框、标题和文本等颜色变量 */
 :root {
   --color-background: var(--vt-c-white);
   --color-background-soft: var(--vt-c-white-soft);
@@ -33,9 +36,10 @@
   --color-heading: var(--vt-c-text-light-1);
   --color-text: var(--vt-c-text-light-1);
 
-  --section-gap: 160px;
+  --section-gap: 160px; /* 定义区块间距变量 */
 }
 
+/* 当用户偏好深色模式时，重定义语义化颜色变量为深色模式对应的颜色 */
 @media (prefers-color-scheme: dark) {
   :root {
     --color-background: var(--vt-c-black);
@@ -50,6 +54,7 @@
   }
 }
 
+/* 全局样式重置：设置所有元素和伪元素的盒模型为border-box，清除默认margin，字体粗细为正常 */
 *,
 *::before,
 *::after {
@@ -58,15 +63,16 @@
   font-weight: normal;
 }
 
+/* 页面主体样式设置 */
 body {
-  min-height: 100vh;
-  color: var(--color-text);
-  background: var(--color-background);
-  transition:
+  min-height: 100vh; /* 确保页面至少占满整个视口高度 */
+  color: var(--color-text); /* 使用定义的文本颜色变量 */
+  background: var(--color-background); /* 使用定义的背景颜色变量 */
+  transition: /* 设置颜色和背景色的过渡动画，实现主题切换时的平滑效果 */
     color 0.5s,
     background-color 0.5s;
-  line-height: 1.6;
-  font-family:
+  line-height: 1.6; /* 设置行高 */
+  font-family: /* 定义字体栈，优先使用系统字体，保证跨平台一致性 */
     Inter,
     -apple-system,
     BlinkMacSystemFont,
@@ -79,8 +85,8 @@ body {
     'Droid Sans',
     'Helvetica Neue',
     sans-serif;
-  font-size: 15px;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  font-size: 15px; /* 设置基础字体大小 */
+  text-rendering: optimizeLegibility; /* 优化文本渲染 */
+  -webkit-font-smoothing: antialiased; /* 针对webkit内核浏览器的字体抗锯齿 */
+  -moz-osx-font-smoothing: grayscale; /* 针对macOS火狐浏览器的字体抗锯齿 */
 }

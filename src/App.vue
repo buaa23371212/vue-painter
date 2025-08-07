@@ -5,17 +5,19 @@ import DrawingBoard from './components/DrawingBoard.vue'
 </script>
 
 <template>
-	<header>
-		<img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
+	<div class="top-content">
+		<header>
+			<img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
 
-		<div class="wrapper">
-			<HelloWorld msg="You did it!" />
-		</div>
-	</header>
+			<div class="wrapper">
+				<HelloWorld msg="You did it!" />
+			</div>
+		</header>
 
-	<main>
-		<TheWelcome />
-	</main>
+		<main>
+			<TheWelcome />
+		</main>
+	</div>
 
 	<section class="drawing-board-container">
 		<DrawingBoard />
@@ -23,6 +25,23 @@ import DrawingBoard from './components/DrawingBoard.vue'
 </template>
 
 <style scoped>
+/* 顶部内容容器样式 */
+.top-content {
+	/* 与下方绘图板保持距离 */
+	margin-bottom: 2rem;
+	display: flex;
+}
+
+/* 绘图板容器居中样式 */
+.drawing-board-container {
+	/* 网格项水平居中 */
+	justify-self: center;
+	/* 可以根据需要调整宽度 */
+	width: 100%;
+	/* 设置最大宽度限制 */
+	max-width: 800px;
+}
+
 header {
 	line-height: 1.5;
 }
