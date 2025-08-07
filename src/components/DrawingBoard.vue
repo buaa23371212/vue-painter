@@ -6,34 +6,24 @@
         </header>
 
         <div class="app-content">
-            <div class="toolbar">
-                <div class="tool-group">
-                    <button class="tool-btn" :class="{ active: currentTool === 'pencil' }"
-                        @click="currentTool = 'pencil'">
-                        <span>✏️</span> 画笔
-                    </button>
-                    <button class="tool-btn" :disabled="true" @click="currentTool = 'eraser'">
-                        <span>🧹</span> 橡皮擦
-                    </button>
-                    <button class="tool-btn" :disabled="true">
-                        <span>⭕</span> 形状
-                    </button>
-                    <button class="tool-btn" :disabled="true">
-                        <span>🅰️</span> 文字
-                    </button>
+            <Toolbar :current-tool="currentTool" :current-color="currentColor" :color-options="colorOptions"
+                @tool-change="currentTool = $event" @color-change="setCurrentColor" @clear-canvas="clearCanvas">
+                <!-- 画笔大小控制 - 仅在选择画笔或形状工具时显示 -->
+                <div class="brush-size" v-if="['pencil', 'shape'].includes(currentTool)">
+                    <span>画笔大小: </span>
+                    <div class="size-preview" :style="{
+                        width: `${brushSize * 2 + 10}px`,
+                        height: `${brushSize * 2 + 10}px`
+                    }">{{ brushSize }}</div>
+                    <input type="range" id="brush-size" min="1" max="30" v-model="brushSize" @input="updateBrushSize">
                 </div>
 
-                <div class="color-picker">
-                    <div class="color-option" :class="{ active: currentColor === color }" :style="{ background: color }"
-                        :data-color="color" @click="setCurrentColor(color)" v-for="color in colorOptions" :key="color">
-                    </div>
-                </div>
-            </div>
+                <!-- 清空画布按钮 -->
+                <button class="action-btn" @click="clearCanvas">清空画布</button>
+            </Toolbar>
 
-            <div class="canvas-container">
-                <canvas id="drawing-canvas" @mousedown="startDrawing" @mousemove="draw" @mouseup="stopDrawing"
-                    @mouseout="stopDrawing"></canvas>
-            </div>
+            <CanvasContainer ref="canvasContainer" :current-color="currentColor" :brush-size="brushSize"
+                :current-tool="currentTool" />
 
             <div class="instructions">
                 <h3>使用说明：</h3>
@@ -46,32 +36,21 @@
                 </ul>
             </div>
         </div>
-
-        <div class="footer">
-            <div class="brush-size">
-                <span>画笔大小: </span>
-                <div class="size-preview" :style="{
-                    width: `${brushSize * 2 + 10}px`,
-                    height: `${brushSize * 2 + 10}px`
-                }">{{ brushSize }}</div>
-                <input type="range" id="brush-size" min="1" max="30" v-model="brushSize" @input="updateBrushSize">
-            </div>
-
-            <button class="action-btn" @click="clearCanvas">清空画布</button>
-        </div>
     </div>
 </template>
 
 <script>
+import Toolbar from './Toolbar.vue'
+import CanvasContainer from './CanvasContainer.vue'
+
 export default {
     name: 'DrawingBoard',
+    components: {
+        Toolbar,
+        CanvasContainer
+    },
     data() {
         return {
-            canvas: null,
-            ctx: null,
-            isDrawing: false,
-            lastX: 0,
-            lastY: 0,
             currentColor: '#000000',
             brushSize: 5,
             currentTool: 'pencil',
@@ -81,60 +60,13 @@ export default {
             ]
         }
     },
-    mounted() {
-        // 初始化画布
-        this.canvas = document.getElementById('drawing-canvas');
-        this.ctx = this.canvas.getContext('2d');
-        this.resizeCanvas();
-        this.initCanvasSettings();
-
-        // 监听窗口大小变化
-        window.addEventListener('resize', this.resizeCanvas);
-
-        // 组件销毁时移除事件监听
-        this.$once('hook:beforeDestroy', () => {
-            window.removeEventListener('resize', this.resizeCanvas);
-        });
-    },
     methods: {
-        resizeCanvas() {
-            const container = this.canvas.parentElement;
-            this.canvas.width = container.clientWidth;
-            this.canvas.height = container.clientHeight;
-        },
-        initCanvasSettings() {
-            this.ctx.strokeStyle = this.currentColor;
-            this.ctx.lineWidth = this.brushSize * 2;
-            this.ctx.lineCap = 'round';
-            this.ctx.lineJoin = 'round';
-        },
-        startDrawing(e) {
-            this.isDrawing = true;
-            [this.lastX, this.lastY] = [e.offsetX, e.offsetY];
-        },
-        draw(e) {
-            if (!this.isDrawing) return;
-
-            this.ctx.beginPath();
-            this.ctx.moveTo(this.lastX, this.lastY);
-            this.ctx.lineTo(e.offsetX, e.offsetY);
-            this.ctx.strokeStyle = this.currentColor;
-            this.ctx.lineWidth = this.brushSize * 2;
-            this.ctx.stroke();
-
-            [this.lastX, this.lastY] = [e.offsetX, e.offsetY];
-        },
-        stopDrawing() {
-            this.isDrawing = false;
-        },
-        clearCanvas() {
-            this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-        },
-        updateBrushSize() {
-            // 自动触发，因为使用了v-model
-        },
         setCurrentColor(color) {
             this.currentColor = color;
+        },
+        clearCanvas() {
+            // 调用子组件的清空方法
+            this.$refs.canvasContainer.clearCanvas();
         }
     }
 }
