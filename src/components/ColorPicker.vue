@@ -14,6 +14,8 @@
 </template>
 
 <script>
+import { COLOR_OPTIONS } from '@/constants/colorOptions'
+
 export default {
   name: 'ColorPicker',
   props: {
@@ -25,10 +27,7 @@ export default {
     colorOptions: {
       type: Array,
       required: true,
-      default: () => [
-        '#000000', '#e74c3c', '#3498db',
-        '#2ecc71', '#f39c12', '#9b59b6'
-      ]
+      default: () => COLOR_OPTIONS
     }
   },
   methods: {
