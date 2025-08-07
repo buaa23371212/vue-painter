@@ -50,6 +50,12 @@ export default {
             });
             return this.layers[this.currentLayerIndex].canvas;
         },
+        resizeAllCanvases(size) {
+            this.layers.forEach(layer => {
+                layer.canvas.width = size.width;
+                layer.canvas.height = size.height;
+            });
+        },
         // 获取当前活动图层的画布
         getCurrentLayerCanvas() {
             return this.layers[this.currentLayerIndex].canvas;
@@ -85,21 +91,21 @@ export default {
             this.currentLayerIndex = index;
             this.$emit('layerChanged', this.getCurrentLayerCanvas());
         },
-        // 上移图层
         moveUp() {
-            if (this.currentLayerIndex === this.layers.length - 1) return;
-
-            [this.layers[this.currentLayerIndex], this.layers[this.currentLayerIndex + 1]] =
-                [this.layers[this.currentLayerIndex + 1], this.layers[this.currentLayerIndex]];
-            this.currentLayerIndex++;
+            if (this.currentLayerIndex >= this.layers.length - 1) return;
+            // 交换当前图层和上方图层的位置
+            const upperIndex = this.currentLayerIndex + 1;
+            [this.layers[this.currentLayerIndex], this.layers[upperIndex]] =
+                [this.layers[upperIndex], this.layers[this.currentLayerIndex]];
+            this.currentLayerIndex = upperIndex;
         },
-        // 下移图层
         moveDown() {
-            if (this.currentLayerIndex === 0) return;
-
-            [this.layers[this.currentLayerIndex], this.layers[this.currentLayerIndex - 1]] =
-                [this.layers[this.currentLayerIndex - 1], this.layers[this.currentLayerIndex]];
-            this.currentLayerIndex--;
+            if (this.currentLayerIndex <= 0) return;
+            // 交换当前图层和下方图层的位置
+            const lowerIndex = this.currentLayerIndex - 1;
+            [this.layers[this.currentLayerIndex], this.layers[lowerIndex]] =
+                [this.layers[lowerIndex], this.layers[this.currentLayerIndex]];
+            this.currentLayerIndex = lowerIndex;
         },
         // 图层可见性变化
         onLayerVisibilityChange() {
