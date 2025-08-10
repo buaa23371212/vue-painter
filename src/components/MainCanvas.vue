@@ -7,6 +7,7 @@
 
 <script>
 import throttle from 'lodash/throttle';
+import logger from '@/console_logger/logger'
 
 export default {
     name: 'MainCanvas',
@@ -61,6 +62,8 @@ export default {
             if (!this.currentLayerCanvas) return;
             this.isDrawing = true;
             [this.lastX, this.lastY] = [e.offsetX, e.offsetY];
+
+            logger.debug('Mouse Down at', this.lastX, this.lastY);
         },
         handleMouseMove: throttle(function (e) {
             if (!this.isDrawing || !this.currentLayerCanvas) return;
@@ -80,6 +83,8 @@ export default {
         }, 16),
         handleMouseUp() {
             this.isDrawing = false;
+
+            logger.debug('Mouse Up');
         },
         handleMouseOut() {
             this.isDrawing = false;
