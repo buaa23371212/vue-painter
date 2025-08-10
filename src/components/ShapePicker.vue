@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import { shapeOptions } from '@/constants/shapeOptions'
+import { shapeOptions } from '@/constants/ShapeOptions'
 
 export default {
   name: 'ShapePicker',

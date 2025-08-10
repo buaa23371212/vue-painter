@@ -1,71 +1,9 @@
-<script setup lang="ts">
-import HelloWorld from './components/HelloWorld.vue'
-import TheWelcome from './components/TheWelcome.vue'
-import DrawingBoard from './components/DrawingBoard.vue'
-</script>
-
+<!-- src/App.vue -->
 <template>
-	<div class="top-content">
-		<header>
-			<img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
-
-			<div class="wrapper">
-				<HelloWorld msg="You did it!" />
-			</div>
-		</header>
-
-		<main>
-			<TheWelcome />
-		</main>
-	</div>
-
-	<section class="drawing-board-container">
-		<DrawingBoard />
-	</section>
+  <!-- 路由出口：所有匹配的路由组件将在这里渲染 -->
+  <router-view />
 </template>
 
 <style scoped>
-/* 顶部内容容器样式 */
-.top-content {
-	/* 与下方绘图板保持距离 */
-	margin-bottom: 2rem;
-	display: flex;
-}
-
-/* 绘图板容器居中样式 */
-.drawing-board-container {
-	/* 网格项水平居中 */
-	justify-self: center;
-	/* 可以根据需要调整宽度 */
-	width: 100%;
-	/* 设置最大宽度限制 */
-	max-width: 800px;
-}
-
-header {
-	line-height: 1.5;
-}
-
-.logo {
-	display: block;
-	margin: 0 auto 2rem;
-}
-
-@media (min-width: 1024px) {
-	header {
-		display: flex;
-		place-items: center;
-		padding-right: calc(var(--section-gap) / 2);
-	}
-
-	.logo {
-		margin: 0 2rem 0 0;
-	}
-
-	header .wrapper {
-		display: flex;
-		place-items: flex-start;
-		flex-wrap: wrap;
-	}
-}
+/* 可保留全局样式，或移至 main.css */
 </style>

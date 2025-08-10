@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import { COLOR_OPTIONS } from '@/constants/colorOptions'
+import { COLOR_OPTIONS } from '@/constants/ColorOptions'
 
 export default {
   name: 'ColorPicker',
