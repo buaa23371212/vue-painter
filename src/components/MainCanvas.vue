@@ -63,7 +63,8 @@ export default {
             this.isDrawing = true;
             [this.lastX, this.lastY] = [e.offsetX, e.offsetY];
 
-            logger.debug('Mouse Down at', this.lastX, this.lastY);
+            logger.debug('鼠标按下 - 鼠标事件坐标:', { x: e.offsetX, y: e.offsetY });
+            logger.debug('鼠标按下 - 画布实际坐标:', { x: this.lastX, y: this.lastY });
         },
         handleMouseMove: throttle(function (e) {
             if (!this.isDrawing || !this.currentLayerCanvas) return;
